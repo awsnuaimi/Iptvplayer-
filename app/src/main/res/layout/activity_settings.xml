@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp"
+    android:background="#121212">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="📺 أدخل رابط الـ M3U"
+        android:textSize="22sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:layout_marginBottom="32dp"/>
+
+    <EditText
+        android:id="@+id/et_m3u_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="مثال: https://example.com/playlist.m3u"
+        android:textColorHint="#888888"
+        android:textColor="#FFFFFF"
+        android:background="@android:drawable/editbox_background"
+        android:padding="16dp"
+        android:inputType="textUri"/>
+
+    <Button
+        android:id="@+id/btn_save_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="✅ حفظ وتشغيل"
+        android:textSize="18sp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#2196F3"/>
+
+</LinearLayout>

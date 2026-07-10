@@ -1,0 +1,43 @@
+package com.example.iptvplayer.data.parser
+
+import com.example.iptvplayer.data.model.Channel
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+
+class M3UParser {
+    suspend fun parse(url: String): List<Channel> = withContext(Dispatchers.IO) {
+        val client = OkHttpClient.Builder()
+            .addInterceptor { chain ->
+                val request = chain.request().newBuilder()
+                    .header("User-Agent", "VLC/3.0.0")
+                    .build()
+                chain.proceed(request)
+            }.build()
+
+        val response = client.newCall(Request.Builder().url(url).build()).execute()
+        val lines = response.body?.string()?.split("\n") ?: emptyList()
+
+        val channels = mutableListOf<Channel>()
+        var currentName = ""
+        var currentLogo = ""
+        var currentGroup = "عام"
+
+        for (line in lines) {
+            if (line.startsWith("#EXTINF:")) {
+                val nameMatch = Regex(",([^,]+)$").find(line)
+                currentName = nameMatch?.groupValues?.get(1)?.trim() ?: "Unknown"
+                val logoMatch = Regex("tvg-logo=\"([^\"]+)\"").find(line)
+                currentLogo = logoMatch?.groupValues?.get(1) ?: ""
+                val groupMatch = Regex("group-title=\"([^\"]+)\"").find(line)
+                currentGroup = groupMatch?.groupValues?.get(1) ?: "عام"
+            } else if (line.isNotBlank() && !line.startsWith("#")) {
+                if (currentName != "Unknown") {
+                    channels.add(Channel(currentName, line.trim(), currentLogo, currentGroup))
+                }
+            }
+        }
+        return@withContext channels
+    }
+}

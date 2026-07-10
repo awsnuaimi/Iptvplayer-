@@ -1,0 +1,29 @@
+package com.example.iptvplayer.data.repository
+
+import com.example.iptvplayer.data.model.Channel
+import com.example.iptvplayer.data.parser.M3UParser
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+
+class ChannelRepository {
+    suspend fun fetchChannels(url: String): Flow<Result<List<Channel>>> = flow {
+        emit(Result.Loading) // أولاً: نرسل حالة "جاري التحميل"
+        try {
+            val channels = M3UParser().parse(url) // نحاول جلب القنوات
+            if (channels.isNotEmpty()) {
+                emit(Result.Success(channels)) // ثانياً: نرسل النتيجة (نجاح)
+            } else {
+                emit(Result.Error("لا توجد قنوات في هذا الرابط"))
+            }
+        } catch (e: Exception) {
+            emit(Result.Error("فشل التحميل: ${e.localizedMessage}"))
+        }
+    }
+}
+
+// هذه الفئات تستخدم لتنظيم حالات النتيجة (تحميل، نجاح، خطأ)
+sealed class Result<out T> {
+    object Loading : Result<Nothing>()
+    data class Success<T>(val data: T) : Result<T>()
+    data class Error(val message: String) : Result<Nothing>()
+}
