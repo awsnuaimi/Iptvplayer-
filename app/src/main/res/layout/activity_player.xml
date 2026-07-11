@@ -15,14 +15,14 @@
         app:show_buffering="when_playing"
         app:resize_mode="fit" />
 
-    <!-- زر العودة (في أعلى يسار الشاشة) -->
+    <!-- زر العودة -->
     <ImageButton
         android:id="@+id/btnBack"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_margin="16dp"
         android:src="@drawable/ic_play_arrow"
-        android:scaleX="-1"  <!-- نقلب الأيقونة لتصبح كالسهم -->
+        android:scaleX="-1"
         android:tint="#FFFFFF"
         android:background="@android:color/transparent"
         android:contentDescription="رجوع" />
