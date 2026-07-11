@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'com.example.iptvplayer'
-    compileSdk 34
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.iptvplayer"
         minSdk 21
-        targetSdk 34
+        targetSdk 33
         versionCode 1
         versionName "1.0"
     }
@@ -31,19 +31,11 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.10.0'
-    
-    // مشغل الفيديو (ExoPlayer)
-    implementation 'com.google.android.exoplayer:exoplayer:2.19.1'
-    
-    // التعامل مع التحميل غير المتزامن (Coroutines)
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
-    
-    // تحميل ملفات M3U (OkHttp)
-    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
-    
-    // تحميل صور الشعارات (Coil)
-    implementation 'io.coil-kt:coil:2.6.0'
+    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.google.android.exoplayer:exoplayer:2.18.7'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    implementation 'com.squareup.okhttp3:okhttp:4.11.0'
+    implementation 'io.coil-kt:coil:2.4.0'
 }
