@@ -32,10 +32,11 @@ class MainViewModel : ViewModel() {
 
             repository.fetchChannels(url).collect { result ->
                 when (result) {
-                    is Result.Loading -> _isLoading.value = true
+                    is Result.Loading -> {
+                        _isLoading.value = true
+                    }
                     is Result.Success -> {
                         _channels.value = result.data
-                        // استخراج المجموعات الفريدة (لإنشاء التبويبات)
                         val groupList = result.data.map { it.group }.distinct().sorted()
                         _groups.value = listOf("الكل") + groupList
                         _isLoading.value = false
